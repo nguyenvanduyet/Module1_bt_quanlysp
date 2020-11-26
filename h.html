@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+</head>
+<body>
+<input type="text" id="product-name" placeholder="product name...">
+<button onclick="addProduct()">Add</button>
+
+<table id="list-product" border="1px"></table>
+<script>
+    let products = ["Tao","Oi","Chuoi"];
+
+    //Hiển thị danh sách sản phẩm
+    function display2() {
+        let str = "<tr>"
+            +"<th>STT</th>"
+            +"<th>Product Name</th>"
+            +"<th colspan='2'>Action</th>"
+            + "</tr>";
+        for (let i = 0; i < products.length; i++) {
+            str+= '<tr>' +
+                '<td>'+(i+1)+'</td>' +
+                '<td>'+products[i]+'</td>' +
+                '<td><button onclick="editProduct('+i+')">Edit</button></td>' +
+                '<td><button onclick="delProduct('+i+')">Delete</button></td>' +
+                '</tr>';
+        }
+        document.getElementById('list-product').innerHTML = str;
+    }
+
+    function display() {
+        let str = `<tr>
+                    <th>STT</th>
+                    <th>Product Name</th>
+                    <th colspan="2">Action</th>
+                   </tr>`;
+        for (let i = 0; i < products.length; i++) {
+            str += `<tr>
+                        <td>${i+1}</td>
+                        <td>${products[i]}</td>
+                        <td><button onclick="editProduct(${i})">Edit</button></td>
+                        <td><button onclick="delProduct(${i})">Delete</button></td>
+                    </tr>`;
+        }
+        document.getElementById('list-product').innerHTML = str;
+    }
+
+    //Thêm 1 sản phẩm vào danh sách
+    function addProduct() {
+        let nameInput = document.getElementById('product-name');
+        if(nameInput.value == ''){
+            alert("Vui long nhap ten san pham!");
+        }else {
+            let product = nameInput.value;
+            products.push(product);
+            clearInput();
+            display();
+        }
+
+    }
+
+    //Xóa 1 sản phẩm khỏi danh sách
+    function delProduct(index) {
+        products.splice(index,1);
+        display();
+    }
+
+    //Sửa 1 sản phẩm trong danh sách
+    function editProduct(index) {
+        let newName = prompt("Nhap ten moi cua san pham");
+        products[index] = newName;
+        display();
+    }
+
+    //Reset input
+    function clearInput() {
+        document.getElementById('product-name').value = '';
+    }
+
+    display();
+</script>
+</body>
+</html>
